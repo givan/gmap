@@ -31,11 +31,16 @@
                             var pos = new google.maps.LatLng(position.coords.latitude,
                                     position.coords.longitude);
 
-                            var infowindow = new google.maps.InfoWindow({
-                                map: map,
-                                position: pos,
-                                content: 'Location found using HTML5.'
-                            });
+//                            var infowindow = new google.maps.InfoWindow({
+//                                map: map,
+//                                position: pos,
+//                                content: 'Location found using HTML5.'
+//                            });
+
+                            var historicalOverlay = new google.maps.GroundOverlay(
+                                    'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg'
+                            );
+                            historicalOverlay.setMap(map);
 
                             map.setCenter(pos);
                         }
@@ -71,10 +76,27 @@
                             var pos = new google.maps.LatLng(position.coords.latitude,
                                     position.coords.longitude);
 
-                            var infowindow = new google.maps.InfoWindow({
-                                map: map,
+//                            var infowindow = new google.maps.InfoWindow({
+//                                map: map,
+//                                position: pos,
+//                                content: 'Location found using HTML5.'
+//                            });
+
+                            var image = 'img/taxi.gif';
+                            var marker = new google.maps.Marker({
                                 position: pos,
-                                content: 'Location found using HTML5.'
+                                map: map,
+                                icon: image,
+                                draggable:true,
+                                animation: google.maps.Animation.DROP
+                            });
+                            google.maps.event.addListener(marker, 'click', function () {
+
+                                if (marker.getAnimation() != null) {
+                                    marker.setAnimation(null);
+                                } else {
+                                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                                }
                             });
 
                             map.setCenter(pos);
@@ -82,6 +104,8 @@
                 );
             }
         });
+
+
 //
 //            /*
 //             // Bounds for North America
